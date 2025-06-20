@@ -17,10 +17,7 @@ class ClientResource extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'notes' => $this->notes,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-
-            'user_id' => $this->user_id,
+            'bookings' => BookingResource::collection($this->whenLoaded('bookings')),
         ];
     }
 }

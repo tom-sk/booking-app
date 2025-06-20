@@ -5,12 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClientRequest;
 use App\Http\Resources\ClientResource;
 use App\Models\Client;
+use App\Services\ClientService;
+use Inertia\Inertia;
 
 class ClientController extends Controller
 {
+    protected $clientService;
+
+    public function __construct(ClientService $clientService)
+    {
+        $this->clientService = $clientService;
+    }
+
     public function index()
     {
-        return ClientResource::collection(Client::all());
+        $clients = $this->clientService->getAllForAuthUser();
+
+        return Inertia::render('Clients/Index', [
+            'clients' => $clients,
+        ]);
     }
 
     public function store(ClientRequest $request)
