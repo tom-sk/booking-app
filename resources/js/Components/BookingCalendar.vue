@@ -97,7 +97,7 @@ function onDayClick(day) {
                 @click="onDayClick(day)"
                 type="button"
                 :class="[
-                  'relative py-1.5 hover:bg-gray-300 hover:text-black focus:z-10 transition-colors transition-ease-in-out',
+                  'relative py-1.5 hover:bg-gray-200 hover:text-black focus:z-10 transition-colors transition-ease-in-out',
                   day.isCurrentMonth ? 'bg-white' : 'bg-gray-50',
                   day.isSelected && 'font-semibold text-white bg-indigo-400',
                   day.isSelected && day.isToday && 'bg-indigo-600',
@@ -115,7 +115,7 @@ function onDayClick(day) {
                 <!-- Booking indicator dot -->
                 <span
                     v-if="day.hasBooking"
-                    class="absolute bottom-1 right-1 h-2 w-2 rounded-full bg-red-500"
+                    class="absolute bottom-1 right-1 h-2 w-2 rounded-full bg-green-400"
                     aria-label="Booking exists"
                     title="This day has a booking"
                 ></span>
