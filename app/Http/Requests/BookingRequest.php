@@ -16,7 +16,7 @@ class BookingRequest extends FormRequest
             'end_time' => ['required', 'date'],
             'status' => ['required', 'integer'],
             'paid' => ['boolean'],
-            'notes' => ['required'],
+            'notes' => ['text', 'nullable'],
         ];
     }
 

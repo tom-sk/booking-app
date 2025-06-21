@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/booking', [BookingController::class, 'index'])->middleware(['auth', 'verified'])->name('bookings');
+Route::get('/booking/store', [BookingController::class, 'store'])->middleware(['auth', 'verified'])->name('booking.store');
 Route::get('/clients', [ClientController::class, 'index'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::middleware('auth')->group(function () {
