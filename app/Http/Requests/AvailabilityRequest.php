@@ -9,7 +9,6 @@ class AvailabilityRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required', 'exists:users'],
             'day_of_week' => ['required', 'integer'],
             'start_time' => ['required', 'date'],
             'end_time' => ['required', 'date'],

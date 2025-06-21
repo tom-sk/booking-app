@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import {Link, usePage} from '@inertiajs/vue3';
 
 defineProps({
     navigation: {
@@ -7,10 +7,13 @@ defineProps({
         required: true
     }
 });
+
+const isActive = (routeName) => {
+    return usePage().props.pageName === routeName;
+};
 </script>
 
 <template>
-    <!-- Static sidebar for desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
         <!-- Sidebar component, swap this element with another sidebar if you like -->
         <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6">
@@ -22,7 +25,7 @@ defineProps({
                     <li>
                         <ul role="list" class="-mx-2 space-y-1">
                             <li v-for="item in navigation" :key="item.name">
-                                <Link :href="route(item.routeName)" :class="[route().current(item.routeName) ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold']">
+                                <Link :href="route(item.routeName)" :class="[isActive(item.routeName) ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold']">
                                     <component :is="item.icon" class="size-6 shrink-0" aria-hidden="true" />
                                     {{ item.name }}
                                 </Link>

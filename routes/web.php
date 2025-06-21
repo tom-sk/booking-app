@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
@@ -31,6 +32,8 @@ Route::post('/services/update/{service}', [ServiceController::class, 'update'])-
 Route::post('/services/store', [ServiceController::class, 'store'])->middleware(['auth', 'verified'])->name('service.store');
 // Clients
 Route::get('/clients', [ClientController::class, 'index'])->middleware(['auth', 'verified'])->name('clients');
+//  Availability
+Route::get('/availability', [AvailabilityController::class, 'index'])->middleware(['auth', 'verified'])->name('availability');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

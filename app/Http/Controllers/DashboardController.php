@@ -17,8 +17,9 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $title = 'Dashboard';
         $bookings = $this->bookingService->getAllForAuthUser();
 
-        return Inertia::render('Dashboard', compact('bookings'));
+        return Inertia::render('Dashboard', compact('bookings', 'title'));
     }
 }

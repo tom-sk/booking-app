@@ -5,12 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AvailabilityRequest;
 use App\Http\Resources\AvailabilityResource;
 use App\Models\Availability;
+use App\Services\AvailabilityService;
+use Inertia\Inertia;
 
 class AvailabilityController extends Controller
 {
+    protected $availabilityService;
+
+    public function __construct(AvailabilityService $availabilityService)
+    {
+        $this->availabilityService = $availabilityService;
+    }
+
     public function index()
     {
-        return AvailabilityResource::collection(Availability::all());
+        $availability = $this->availabilityService->getAllForAuthUser();
+
+        return Inertia::render('Availability', compact('availability'));
     }
 
     public function store(AvailabilityRequest $request)

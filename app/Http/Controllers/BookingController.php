@@ -17,9 +17,10 @@ class BookingController extends Controller
     }
     public function index()
     {
+        $title = __('Bookings');
         $bookings = $this->bookingService->getAllForAuthUser();
 
-        return Inertia::render('Bookings', compact('bookings'));
+        return Inertia::render('Bookings', compact('bookings', 'title'));
     }
 
     public function store(BookingRequest $request)
