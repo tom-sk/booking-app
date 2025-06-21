@@ -4,21 +4,11 @@ import {
     ChevronRightIcon,
 } from '@heroicons/vue/20/solid'
 import { ref, computed } from 'vue'
-import { useForm } from '@inertiajs/vue3'
-import {
-    startOfMonth, endOfMonth, startOfWeek, endOfWeek,
-    eachDayOfInterval, format, isSameMonth, isToday, isSameDay
-} from 'date-fns'
-import TimePicker from "@/Components/Forms/TimePicker.vue"
+import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, format, isSameMonth, isToday, isSameDay } from 'date-fns'
+import TimePicker from "@/Components/Forms/TimePicker.vue";
 
 const currentDate = ref(new Date())
 const selectedDate = ref(format(new Date(), 'yyyy-MM-dd'))
-const selectedTime = ref(format(new Date(), 'HH:mm'))
-
-const form = useForm({
-    date: selectedDate.value,
-    time: selectedTime.value,
-})
 
 const monthLabel = computed(() => format(currentDate.value, 'MMMM yyyy'))
 
@@ -45,13 +35,8 @@ function goToNextMonth() {
     currentDate.value = newDate
 }
 
-function submit() {
-    form.date = selectedDate.value
-    form.time = selectedTime.value
-    form.post(route('booking.store')) // Replace with your actual endpoint
-}
+const selectedTime = ref(format(new Date(), 'HH:mm'))
 </script>
-
 <template>
     <div class="text-center">
         <div class="flex items-center text-gray-900 justify-between mb-4">
@@ -92,10 +77,7 @@ function submit() {
 
         <TimePicker v-model="selectedTime" class="mt-4" />
 
-        <button
-            @click="submit"
-            class="mt-8 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
-        >
+        <button class="mt-8 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500">
             Add event
         </button>
     </div>
