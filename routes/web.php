@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -17,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/booking', [BookingController::class, 'index'])->middleware(['auth', 'verified'])->name('bookings');
 Route::get('/clients', [ClientController::class, 'index'])->middleware(['auth', 'verified'])->name('clients');
 
 Route::middleware('auth')->group(function () {

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Booking;
+use App\Services\BookingService;
 
 class BookingRepository
 {

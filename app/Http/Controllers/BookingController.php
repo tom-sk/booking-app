@@ -5,12 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookingRequest;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
+use App\Services\BookingService;
+use Inertia\Inertia;
 
 class BookingController extends Controller
 {
+    protected $bookingService;
+    public function __construct(BookingService $bookingService)
+    {
+        $this->bookingService = $bookingService;
+    }
     public function index()
     {
-        return BookingResource::collection(Booking::all());
+        $bookings = $this->bookingService->getAllForAuthUser();
+
+        return Inertia::render('Bookings', compact('bookings'));
     }
 
     public function store(BookingRequest $request)

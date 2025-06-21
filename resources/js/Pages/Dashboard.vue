@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import AuthSidebar from "@/Layouts/AuthSidebar.vue";
 
 defineProps({
     bookings: {
@@ -12,7 +13,7 @@ defineProps({
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <AuthSidebar>
         <template #header>
             <h2
                 class="text-xl font-semibold leading-tight text-gray-800"
@@ -21,12 +22,12 @@ defineProps({
             </h2>
         </template>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div>
+            <div>
                 <div
                     class="overflow-hidden bg-white shadow-sm sm:rounded-lg"
                 >
-                    <div class="p-6 text-gray-900">
+                    <div class="text-gray-900">
                         <h3 class="bold text-2xl mb-4">Bookings</h3>
                         <div v-for="booking in bookings.data">
                             <div class="mb-4 p-4 bg-gray-100 rounded-lg">
@@ -53,5 +54,5 @@ defineProps({
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </AuthSidebar>
 </template>
