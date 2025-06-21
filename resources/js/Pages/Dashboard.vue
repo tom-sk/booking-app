@@ -29,7 +29,7 @@ defineProps({
                 >
                     <div class="text-gray-900">
                         <h3 class="bold text-2xl mb-4">Bookings</h3>
-                        <div v-for="booking in bookings.data">
+                        <div v-for="booking in bookings">
                             <div class="mb-4 p-4 bg-gray-100 rounded-lg">
                                 <h3 class="text-lg font-semibold">
                                     Booking ID: {{ booking.id }}

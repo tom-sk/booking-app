@@ -99,7 +99,7 @@ function onDayClick(day) {
                 :class="[
                   'relative py-1.5 hover:bg-gray-200 hover:text-black focus:z-10 transition-colors transition-ease-in-out',
                   day.isCurrentMonth ? 'bg-white' : 'bg-gray-50',
-                  day.isSelected && 'font-semibold text-white bg-indigo-400',
+                  day.isSelected && 'font-semibold text-white bg-indigo-500',
                   day.isSelected && day.isToday && 'bg-indigo-600',
                   day.isSelected && !day.isToday && 'bg-gray-900',
                   !day.isSelected && day.isToday && 'text-indigo-600',
@@ -122,8 +122,8 @@ function onDayClick(day) {
             </button>
         </div>
 
-        <button class="mt-8 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500">
-            Add event
-        </button>
+<!--        <button class="mt-8 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500">-->
+<!--            Add event-->
+<!--        </button>-->
     </div>
 </template>

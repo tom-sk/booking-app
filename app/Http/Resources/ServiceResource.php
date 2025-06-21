@@ -9,6 +9,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /** @mixin Service */
 class ServiceResource extends JsonResource
 {
+    public static $wrap = null;
+
     public function toArray(Request $request)
     {
         return [
@@ -16,10 +18,6 @@ class ServiceResource extends JsonResource
             'name' => $this->name,
             'duration' => $this->duration,
             'price' => $this->price,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-
-            'user_id' => $this->user_id,
         ];
     }
 }

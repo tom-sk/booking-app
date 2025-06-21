@@ -13,12 +13,13 @@ import {
 } from '@heroicons/vue/24/outline'
 import Sidebar from "@/Components/Nav/Sidebar.vue";
 import {Link} from "@inertiajs/vue3";
+import FlashContainer from "@/Components/FlashMsg/FlashContainer.vue";
 
 const navigation = [
     {name: 'Dashboard', href: '#', routeName: 'dashboard', icon: HomeIcon, current: true},
     {name: 'Clients', href: '#', routeName:'clients', icon: UsersIcon, current: false},
     {name: 'Bookings', href: '#', routeName:'bookings', icon: FolderIcon, current: false},
-    // {name: 'Calendar', href: '#', icon: CalendarIcon, current: false},
+    {name: 'Services', href: '#', routeName:'services', icon: CalendarIcon, current: false},
     // {name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false},
     // {name: 'Reports', href: '#', icon: ChartPieIcon, current: false},
 ]
@@ -101,5 +102,7 @@ const sidebarOpen = ref(false)
                 </main>
             </div>
         </main>
+
+        <FlashContainer/>
     </div>
 </template>

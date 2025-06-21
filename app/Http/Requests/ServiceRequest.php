@@ -9,7 +9,6 @@ class ServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required', 'exists:users'],
             'name' => ['required'],
             'duration' => ['required', 'integer'],
             'price' => ['required', 'numeric'],

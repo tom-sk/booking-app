@@ -5,17 +5,43 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ServiceRequest;
 use App\Http\Resources\ServiceResource;
 use App\Models\Service;
+use App\Services\ClientService;
+use App\Services\ServiceService;
+use Inertia\Inertia;
 
 class ServiceController extends Controller
 {
+    protected $serviceService;
+
+    public function __construct(ServiceService $serviceService)
+    {
+        $this->serviceService = $serviceService;
+    }
     public function index()
     {
-        return ServiceResource::collection(Service::all());
+        $services = $this->serviceService->getAllForAuthUser();
+
+        return Inertia::render('Services/Index', compact('services'));
+    }
+
+    public function new()
+    {
+        return Inertia::render('Services/New');
+    }
+
+    public function edit(Service $service)
+    {
+        return Inertia::render('Services/Edit', [
+            'service' => new ServiceResource($service),
+        ]);
     }
 
     public function store(ServiceRequest $request)
     {
-        return new ServiceResource(Service::create($request->validated()));
+        $this->serviceService->storeForAuthUser($request->validated());
+        $services = $this->serviceService->getAllForAuthUser();
+
+        return to_route('services');
     }
 
     public function show(Service $service)
@@ -27,7 +53,7 @@ class ServiceController extends Controller
     {
         $service->update($request->validated());
 
-        return new ServiceResource($service);
+        return redirect()->back()->with('success', 'Service updated successfully.');
     }
 
     public function destroy(Service $service)
