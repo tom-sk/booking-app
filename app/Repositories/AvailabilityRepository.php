@@ -15,7 +15,7 @@ class AvailabilityRepository
     public function getByUserIdWithRelations(int $userId)
     {
         return Availability::where('user_id', $userId)
-            ->orderBy('start_time', 'desc')
+            ->orderBy('day_of_week')
             ->get();
     }
 }

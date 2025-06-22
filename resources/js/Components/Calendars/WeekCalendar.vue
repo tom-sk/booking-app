@@ -12,29 +12,8 @@ defineProps({
         default: () => []
     }
 })
-const availability2 = [
-    {
-        day_of_week: 2, // Wed
-        start_time: '06:00',
-        end_time: '07:00',
-        title: 'Breakfast',
-        colorClass: 'bg-blue-50 text-blue-700 hover:bg-blue-100'
-    },
-    {
-        day_of_week: 2,
-        start_time: '07:30',
-        end_time: '08:30',
-        title: 'Flight to Paris',
-        colorClass: 'bg-pink-50 text-pink-700 hover:bg-pink-100'
-    },
-    {
-        day_of_week: 5,
-        start_time: '10:00',
-        end_time: '11:00',
-        title: 'Meeting with design team',
-        colorClass: 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-    }
-]
+
+const emit = defineEmits(['select-day'])
 
 function timeToGridRow(time) {
     // time = "HH:mm"
@@ -42,6 +21,13 @@ function timeToGridRow(time) {
     // 288 rows, each row = 5 minutes: total 288*5 = 1440 minutes (1 day)
     return 2 + (hours * 60 + minutes) / 5 // plus 2 offset to skip headers
 }
+
+function formatHourLabel(hour) {
+    const h = hour % 12 === 0 ? 12 : hour % 12;
+    const ampm = hour < 12 ? 'AM' : 'PM';
+    return `${h}${ampm}`;
+}
+
 
 onMounted(() => {
     const targetMinute = 9 * 60 // 9:00 AM in minutes
@@ -91,25 +77,25 @@ onMounted(() => {
                     <div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm/6 text-gray-500 sm:grid">
                         <div class="col-end-1 w-14" />
                         <div class="flex items-center justify-center py-3">
-                            <span>Mon <span class="items-center justify-center font-semibold text-gray-900">10</span></span>
+                            <span>Mon</span>
                         </div>
                         <div class="flex items-center justify-center py-3">
-                            <span>Tue <span class="items-center justify-center font-semibold text-gray-900">11</span></span>
+                            <span>Tue</span>
                         </div>
                         <div class="flex items-center justify-center py-3">
-                            <span class="flex items-baseline">Wed <span class="ml-1.5 flex size-8 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white">12</span></span>
+                            <span class="flex items-baseline">Wed </span>
                         </div>
                         <div class="flex items-center justify-center py-3">
-                            <span>Thu <span class="items-center justify-center font-semibold text-gray-900">13</span></span>
+                            <span>Thu</span>
                         </div>
                         <div class="flex items-center justify-center py-3">
-                            <span>Fri <span class="items-center justify-center font-semibold text-gray-900">14</span></span>
+                            <span>Fri</span>
                         </div>
                         <div class="flex items-center justify-center py-3">
-                            <span>Sat <span class="items-center justify-center font-semibold text-gray-900">15</span></span>
+                            <span>Sat</span>
                         </div>
                         <div class="flex items-center justify-center py-3">
-                            <span>Sun <span class="items-center justify-center font-semibold text-gray-900">16</span></span>
+                            <span>Sun</span>
                         </div>
                     </div>
                 </div>
@@ -118,105 +104,26 @@ onMounted(() => {
                     <div class="sticky left-0 z-10 w-14 flex-none bg-white ring-1 ring-gray-100" />
                     <div class="grid flex-auto grid-cols-1 grid-rows-1">
                         <!-- Horizontal lines -->
-                        <div class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100" style="grid-template-rows: repeat(48, minmax(3.5rem, 1fr))">
+                        <div
+                            class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
+                            :style="'grid-template-rows: repeat(48, minmax(3.5rem, 1fr))'"
+                        >
                             <div ref="containerOffset" class="row-end-1 h-7" />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">12AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">1AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">2AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">3AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">4AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">5AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">6AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">7AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">8AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">9AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">10AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">11AM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">12PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">1PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">2PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">3PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">4PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">5PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">6PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">7PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">8PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">9PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">10PM</div>
-                            </div>
-                            <div />
-                            <div>
-                                <div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400">11PM</div>
-                            </div>
-                            <div />
+
+                            <template v-for="i in 48" :key="i">
+                                <div v-if="i % 2 === 1">
+                                    <!-- Empty div for spacing / lines -->
+                                </div>
+                                <div v-else>
+                                    <div
+                                        class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs/5 text-gray-400"
+                                    >
+                                        {{ formatHourLabel(i / 2 - 1) }}
+                                    </div>
+                                </div>
+                            </template>
                         </div>
+
 
                         <!-- Vertical lines -->
                         <div class="col-start-1 col-end-2 row-start-1 hidden grid-cols-7 grid-rows-1 divide-x divide-gray-100 sm:grid sm:grid-cols-7">
@@ -238,6 +145,7 @@ onMounted(() => {
                             <li
                                 v-for="(event, i) in availability"
                                 :key="i"
+                                @click="emit('select-day', event)"
                                 class="relative mt-px flex"
                                 :class="`sm:col-start-${event.day_of_week} bg-red-400 border`"
                                 :style="`grid-row: ${timeToGridRow(event.start_time)} / span ${timeToGridRow(event.end_time) - timeToGridRow(event.start_time)}`"
@@ -253,32 +161,6 @@ onMounted(() => {
                                 </a>
                             </li>
                         </ol>
-<!--                        <ol class="col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8" style="grid-template-rows: 1.75rem repeat(288, minmax(0, 1fr)) auto">-->
-<!--                            <li class="relative mt-px flex sm:col-start-3" style="grid-row: 74 / span 12">-->
-<!--                                <a href="#" class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs/5 hover:bg-blue-100">-->
-<!--                                    <p class="order-1 font-semibold text-blue-700">Breakfast</p>-->
-<!--                                    <p class="text-blue-500 group-hover:text-blue-700">-->
-<!--                                        <time datetime="2022-01-12T06:00">6:00 AM</time>-->
-<!--                                    </p>-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                            <li class="relative mt-px flex sm:col-start-3" style="grid-row: 92 / span 30">-->
-<!--                                <a href="#" class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs/5 hover:bg-pink-100">-->
-<!--                                    <p class="order-1 font-semibold text-pink-700">Flight to Paris</p>-->
-<!--                                    <p class="text-pink-500 group-hover:text-pink-700">-->
-<!--                                        <time datetime="2022-01-12T07:30">7:30 AM</time>-->
-<!--                                    </p>-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                            <li class="relative mt-px hidden sm:col-start-6 sm:flex" style="grid-row: 122 / span 24">-->
-<!--                                <a href="#" class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-gray-100 p-2 text-xs/5 hover:bg-gray-200">-->
-<!--                                    <p class="order-1 font-semibold text-gray-700">Meeting with design team at Disney</p>-->
-<!--                                    <p class="text-gray-500 group-hover:text-gray-700">-->
-<!--                                        <time datetime="2022-01-15T10:00">10:00 AM</time>-->
-<!--                                    </p>-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                        </ol>-->
                     </div>
                 </div>
             </div>

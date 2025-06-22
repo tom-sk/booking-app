@@ -19,9 +19,10 @@ class AvailabilityController extends Controller
 
     public function index()
     {
+        $title = 'Availability';
         $availability = $this->availabilityService->getAllForAuthUser();
 
-        return Inertia::render('Availability', compact('availability'));
+        return Inertia::render('Availability/Index', compact('availability', 'title'));
     }
 
     public function store(AvailabilityRequest $request)
@@ -37,8 +38,8 @@ class AvailabilityController extends Controller
     public function update(AvailabilityRequest $request, Availability $availability)
     {
         $availability->update($request->validated());
-
-        return new AvailabilityResource($availability);
+        return to_route('availability')
+            ->with('success', 'Availability updated successfully.');
     }
 
     public function destroy(Availability $availability)

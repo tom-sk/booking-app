@@ -19,26 +19,41 @@ Route::get('/', function () {
     ]);
 });
 
-// Admin
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-// Bookings
-Route::get('/booking', [BookingController::class, 'index'])->middleware(['auth', 'verified'])->name('bookings');
-Route::get('/booking/store', [BookingController::class, 'store'])->middleware(['auth', 'verified'])->name('booking.store');
-//Services
-Route::get('/services', [ServiceController::class, 'index'])->middleware(['auth', 'verified'])->name('services');
-Route::get('/services/new', [ServiceController::class, 'new'])->middleware(['auth', 'verified'])->name('service.new');
-Route::get('/services/edit/{service}', [ServiceController::class, 'edit'])->middleware(['auth', 'verified'])->name('service.edit');
-Route::post('/services/update/{service}', [ServiceController::class, 'update'])->middleware(['auth', 'verified'])->name('service.update');
-Route::post('/services/store', [ServiceController::class, 'store'])->middleware(['auth', 'verified'])->name('service.store');
-// Clients
-Route::get('/clients', [ClientController::class, 'index'])->middleware(['auth', 'verified'])->name('clients');
-//  Availability
-Route::get('/availability', [AvailabilityController::class, 'index'])->middleware(['auth', 'verified'])->name('availability');
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Bookings
+    Route::controller(BookingController::class)->group(function () {
+        Route::get('/booking', 'index')->name('bookings');
+        Route::get('/booking/store', 'store')->name('booking.store');
+    });
+
+    // Services
+    Route::prefix('services')->controller(ServiceController::class)->group(function () {
+        Route::get('/', 'index')->name('services');
+        Route::get('/new', 'new')->name('service.new');
+        Route::get('/edit/{service}', 'edit')->name('service.edit');
+        Route::post('/update/{service}', 'update')->name('service.update');
+        Route::post('/store', 'store')->name('service.store');
+    });
+
+    // Clients
+    Route::get('/clients', [ClientController::class, 'index'])->name('clients');
+
+    // Availability
+    Route::controller(AvailabilityController::class)->group(function () {
+        Route::post('/availability/{availability}', 'update')->name('availability.update');
+        Route::get('/availability', 'index')->name('availability');
+    });
+});
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
