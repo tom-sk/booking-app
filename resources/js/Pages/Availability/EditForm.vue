@@ -48,7 +48,7 @@ const submit = () => {
             start_time: formatTime(form.start_time),
             end_time: formatTime(form.end_time),
         }))
-        .post(route('availability.update', props.selectedDay.id), {
+        .put(route('availability.update', props.selectedDay.id), {
         onSuccess: () => {
             form.reset();
             emit('close')

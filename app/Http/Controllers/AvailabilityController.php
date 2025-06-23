@@ -27,7 +27,10 @@ class AvailabilityController extends Controller
 
     public function store(AvailabilityRequest $request)
     {
-        return new AvailabilityResource(Availability::create($request->validated()));
+        $this->availabilityService->createForAuthUser($request->validated());
+
+        return to_route('availability.index')
+            ->with('success', 'Availability created successfully.');
     }
 
     public function show(Availability $availability)
@@ -38,7 +41,7 @@ class AvailabilityController extends Controller
     public function update(AvailabilityRequest $request, Availability $availability)
     {
         $availability->update($request->validated());
-        return to_route('availability')
+        return to_route('availability.index')
             ->with('success', 'Availability updated successfully.');
     }
 

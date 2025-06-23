@@ -18,4 +18,15 @@ class AvailabilityRepository
             ->orderBy('day_of_week')
             ->get();
     }
+
+    /**
+     * Create a new availability entry.
+     *
+     * @param array $data
+     * @return \App\Models\Availability
+     */
+    public function create(array $data)
+    {
+        return Availability::create($data);
+    }
 }

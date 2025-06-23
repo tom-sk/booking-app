@@ -43,8 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Availability
     Route::controller(AvailabilityController::class)->group(function () {
-        Route::post('/availability/{availability}', 'update')->name('availability.update');
-        Route::get('/availability', 'index')->name('availability');
+        Route::resource('availability', AvailabilityController::class);
     });
 });
 

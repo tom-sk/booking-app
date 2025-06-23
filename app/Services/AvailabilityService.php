@@ -8,15 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class AvailabilityService
 {
-    protected $clientRepo;
+    protected $availabilityRepo;
 
-    public function __construct(AvailabilityRepository $clientRepo)
+    public function __construct(AvailabilityRepository $availabilityRepo)
     {
-        $this->clientRepo = $clientRepo;
+        $this->availabilityRepo = $availabilityRepo;
     }
 
     /**
-     * Get all clients for authenticated user.
+     * Get all availabilitys for authenticated user.
      *
      * @return AvailabilityCollection
      */
@@ -24,6 +24,19 @@ class AvailabilityService
     {
         $userId = Auth::id();
 
-        return new AvailabilityCollection($this->clientRepo->getByUserIdWithRelations($userId));
+        return new AvailabilityCollection($this->availabilityRepo->getByUserIdWithRelations($userId));
+    }
+
+    /**
+     * Create availability for authenticated user.
+     *
+     * @param array $data
+     * @return \App\Models\Availability
+     */
+    public function createForAuthUser(array $data)
+    {
+        $data['user_id'] = Auth::id();
+
+        return $this->availabilityRepo->create($data);
     }
 }

@@ -1,5 +1,21 @@
+<script setup>
+import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
+
+const emit = defineEmits(['close'])
+
+defineProps({
+    modelValue: {
+        type: Boolean,
+        default: false
+    }
+})
+
+const close = () => {
+    emit('close')
+}
+</script>
 <template>
-    <TransitionRoot as="template" :show="isOpen">
+    <TransitionRoot as="template" :show="modelValue">
         <Dialog class="relative z-50" @close="close">
             <!-- Backdrop (fade in/out) -->
             <TransitionChild
@@ -33,10 +49,3 @@
         </Dialog>
     </TransitionRoot>
 </template>
-
-<script setup>
-import { inject } from 'vue'
-import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
-
-const { isOpen, close } = inject('sideModal')
-</script>

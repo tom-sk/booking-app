@@ -1,5 +1,9 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import BasicLayout from "@/Layouts/BasicLayout.vue";
+defineOptions({
+    layout: BasicLayout,
+})
 
 defineProps({
     canLogin: {

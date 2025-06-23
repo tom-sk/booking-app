@@ -29,11 +29,10 @@ it('shows the availability index page', function () {
 
 it('stores new availability', function () {
     $user = actingAsUser($this);
-
     $data = [
         'day_of_week' => 1,
-        'start_time' => '09:00',
-        'end_time' => '17:00',
+        'start_time' => '2025-06-20 09:00',
+        'end_time' => '2025-06-20 17:00',
         'user_id' => $user->id,
     ];
 
