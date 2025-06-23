@@ -38,10 +38,9 @@ class ServiceController extends Controller
 
     public function store(ServiceRequest $request)
     {
-        $this->serviceService->storeForAuthUser($request->validated());
-        $services = $this->serviceService->getAllForAuthUser();
+        $service = $this->serviceService->storeForAuthUser($request->validated());
 
-        return to_route('services.index')->with([
+        return to_route('service.show', $service)->with([
             'success' => 'Service created successfully.',]);
     }
 

@@ -50,9 +50,6 @@ function submit() {
         </div>
 
         <div class="flex justify-end gap-4">
-            <button type="button" @click="form.reset()" class="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-100">
-                Cancel
-            </button>
             <button
                 type="submit"
                 :disabled="form.processing"
