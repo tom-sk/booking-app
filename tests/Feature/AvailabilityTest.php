@@ -27,22 +27,28 @@ it('shows the availability index page', function () {
     );
 });
 
-it('stores new availability', function () {
+it('stores new availability and redirects', function () {
     $user = actingAsUser($this);
+
     $data = [
         'day_of_week' => 1,
         'start_time' => '2025-06-20 09:00',
         'end_time' => '2025-06-20 17:00',
         'user_id' => $user->id,
+        'is_active' => true,
     ];
 
-    $response = $this->postJson(route('availability.store'), $data);
+    $response = $this->post(route('availability.store'), $data);
 
-    $response->assertCreated();
-    expect(Availability::first())
-        ->day_of_week->toBe(1)
-        ->start_time->toBe('09:00:00')
-        ->end_time->toBe('17:00:00');
+    $response->assertRedirect(route('availability.index'));
+    $response->assertSessionHas('success', 'Availability created successfully.');
+
+    $availability = Availability::first();
+    expect($availability)->not()->toBeNull();
+    expect($availability->day_of_week)->toBe(1);
+    expect($availability->start_time->format('H:i:s'))->toBe('09:00:00');
+    expect($availability->end_time->format('H:i:s'))->toBe('17:00:00');
+    expect($availability->user_id)->toBe($user->id);
 });
 
 it('shows a single availability', function () {
