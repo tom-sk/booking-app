@@ -87,11 +87,11 @@ it('updates availability', function () {
 });
 
 it('deletes availability', function () {
-    $user = actingAsUser();
+    $user = actingAsUser($this); // Assuming this helper authenticates the user
     $availability = Availability::factory()->create(['user_id' => $user->id]);
 
-    $response = $this->deleteJson(route('availability.destroy', $availability));
+    $response = $this->delete(route('availability.destroy', $availability));
 
-    $response->assertNoContent();
+    $response->assertRedirect(route('availability.index'));
     $this->assertDatabaseMissing('availabilities', ['id' => $availability->id]);
 });

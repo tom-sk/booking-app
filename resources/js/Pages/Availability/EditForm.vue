@@ -1,5 +1,5 @@
 <script setup>
-import {useForm} from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
 import Select from "@/Components/Forms/Select.vue";
 
 const emit = defineEmits(['close']);
@@ -35,10 +35,8 @@ const submit = () => {
     const formatTime = (time) => {
         const today = new Date();
         const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); // month 0-based
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
         const dd = String(today.getDate()).padStart(2, '0');
-
-        // time is expected in HH:mm, so add seconds ':00'
         return `${yyyy}-${mm}-${dd} ${time}:00`;
     };
 
@@ -49,14 +47,23 @@ const submit = () => {
             end_time: formatTime(form.end_time),
         }))
         .put(route('availability.update', props.selectedDay.id), {
+            onSuccess: () => {
+                form.reset();
+                emit('close');
+            },
+        });
+};
+
+const deleteAvailability = () => {
+    if (!confirm('Are you sure you want to delete this availability?')) return;
+
+    form.delete(route('availability.destroy', props.selectedDay.id), {
         onSuccess: () => {
             form.reset();
-            emit('close')
+            emit('close');
         },
     });
 };
-
-
 </script>
 
 <template>
@@ -103,4 +110,9 @@ const submit = () => {
         Update time
     </button>
 
+    <!-- Delete button -->
+    <button @click="deleteAvailability"
+            class="mt-2 w-full rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-500">
+        Delete
+    </button>
 </template>

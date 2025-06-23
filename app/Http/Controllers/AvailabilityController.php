@@ -49,6 +49,7 @@ class AvailabilityController extends Controller
     {
         $availability->delete();
 
-        return response()->json();
+        return to_route('availability.index')
+            ->with('success', 'Availability deleted.');
     }
 }
