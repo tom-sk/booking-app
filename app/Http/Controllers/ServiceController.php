@@ -41,12 +41,15 @@ class ServiceController extends Controller
         $this->serviceService->storeForAuthUser($request->validated());
         $services = $this->serviceService->getAllForAuthUser();
 
-        return to_route('services');
+        return to_route('services.index')->with([
+            'success' => 'Service created successfully.',]);
     }
 
     public function show(Service $service)
     {
-        return new ServiceResource($service);
+        return Inertia::render('Services/Edit', [
+            'service' => new ServiceResource($service),
+        ]);
     }
 
     public function update(ServiceRequest $request, Service $service)
@@ -60,6 +63,7 @@ class ServiceController extends Controller
     {
         $service->delete();
 
-        return response()->json();
+        return to_route('service.index')
+            ->with('success', 'Service deleted successfully.');
     }
 }

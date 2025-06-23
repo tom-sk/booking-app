@@ -1,13 +1,13 @@
 <script setup>
-import {useForm} from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     service: {
         type: Object,
         default: () => ({})
     }
-})
-// Initialize the form with default values
+});
+
 const form = useForm({
     name: props.service.name || '',
     duration: props.service.duration || '',
@@ -15,9 +15,19 @@ const form = useForm({
 });
 
 function submit() {
-    form.post(route('service.update', props.service.id), {
+    form.put(route('service.update', props.service.id), {
         onSuccess: () => {
+            // Optional: add a toast or redirect
+        },
+    });
+}
 
+function deleteService() {
+    if (!confirm('Are you sure you want to delete this service?')) return;
+
+    form.delete(route('service.destroy', props.service.id), {
+        onSuccess: () => {
+            // Optional: redirect or show feedback
         },
     });
 }
@@ -56,8 +66,8 @@ function submit() {
         </div>
 
         <div class="flex justify-end gap-4">
-            <button type="button" @click="form.reset()" class="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-100">
-                Cancel
+            <button type="button" @click="deleteService" class="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-100">
+                Delete
             </button>
             <button
                 type="submit"

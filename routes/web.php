@@ -30,12 +30,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Services
-    Route::prefix('services')->controller(ServiceController::class)->group(function () {
-        Route::get('/', 'index')->name('services');
+    Route::controller(ServiceController::class)->group(function () {
+        Route::resource('service', ServiceController::class);
         Route::get('/new', 'new')->name('service.new');
-        Route::get('/edit/{service}', 'edit')->name('service.edit');
-        Route::post('/update/{service}', 'update')->name('service.update');
-        Route::post('/store', 'store')->name('service.store');
     });
 
     // Clients

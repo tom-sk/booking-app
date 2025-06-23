@@ -24,7 +24,7 @@ const navigation = [
     {name: 'Dashboard', href: '#', routeName: 'dashboard', icon: HomeIcon, current: true},
     {name: 'Clients', href: '#', routeName:'clients', icon: UsersIcon, current: false},
     {name: 'Bookings', href: '#', routeName:'bookings', icon: FolderIcon, current: false},
-    {name: 'Services', href: '#', routeName:'services', icon: CalendarIcon, current: false},
+    {name: 'Services', href: '#', routeName:'service.index', icon: CalendarIcon, current: false},
     {name: 'Availability', href: '#', routeName:'availability.index', icon: DocumentDuplicateIcon, current: false},
     // {name: 'Reports', href: '#', icon: ChartPieIcon, current: false},
 ]

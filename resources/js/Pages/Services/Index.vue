@@ -12,7 +12,7 @@ defineProps({
 <template>
     <div class="grid grid-cols-2 gap-4 md:grid-cols-4 mb-8">
         <Link v-for="service in services"
-              :href="route('service.edit', service.id)"
+              :href="route('service.show', service.id)"
               :key="service.id"
              class="group relative shadow p-4 hover:bg-gray-200 text-gray-900 transition-all ease cursor-pointer rounded-lg">
             <h3 class="text-sm ">
