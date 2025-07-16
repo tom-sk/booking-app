@@ -9,11 +9,10 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required', 'exists:users'],
             'name' => ['required'],
             'phone' => ['required'],
             'email' => ['required', 'email', 'max:254'],
-            'notes' => ['required'],
+            'notes' => ['nullable', 'max:500'],
         ];
     }
 

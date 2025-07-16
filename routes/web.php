@@ -36,7 +36,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Clients
-    Route::get('/clients', [ClientController::class, 'index'])->name('clients');
+    Route::resource('/clients', ClientController::class);
+
 
     // Availability
     Route::controller(AvailabilityController::class)->group(function () {

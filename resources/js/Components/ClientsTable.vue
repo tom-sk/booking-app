@@ -1,9 +1,5 @@
 <script setup>
-const people = [
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    // More people...
-]
-
+import { Link } from '@inertiajs/vue3';
 
 defineProps({
     clients: {
@@ -31,13 +27,14 @@ defineProps({
                             </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
-                            <tr v-for="person in clients" :key="person.email">
-                                <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6">{{ person.name }}</td>
-                                <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{{ person.phone }}</td>
-                                <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{{ person.email }}</td>
+                            <tr v-for="client in clients" :key="client.email">
+                                <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6">{{ client.name }}</td>
+                                <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{{ client.phone }}</td>
+                                <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{{ client.email }}</td>
                                 <td class="relative py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-6">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900"
-                                    >Edit<span class="sr-only">, {{ person.name }}</span></a
+                                    <Link :href="route('clients.show', client)" class="text-indigo-600 hover:text-indigo-900">
+                                        Edit<span class="sr-only">, {{ client.name }}</span>
+                                    </Link
                                     >
                                 </td>
                             </tr>

@@ -105,14 +105,16 @@ const deleteAvailability = () => {
         </div>
     </div>
 
-    <button @click="submit"
-            class="mt-8 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500">
-        Update time
-    </button>
+    <div class="flex justify-between items-center gap-4">
+        <button @click="submit"
+                class="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500">
+            Update time
+        </button>
 
-    <!-- Delete button -->
-    <button @click="deleteAvailability"
-            class="mt-2 w-full rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-500">
-        Delete
-    </button>
+        <!-- Delete button -->
+        <button @click="deleteAvailability"
+                class="w-full rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-500">
+            Delete
+        </button>
+    </div>
 </template>

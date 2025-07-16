@@ -33,14 +33,18 @@ class ClientController extends Controller
 
     public function show(Client $client)
     {
-        return new ClientResource($client);
+        $client = new ClientResource($client);
+
+        return Inertia::render('Clients/Show', [
+            'client' => $client,
+        ]);
     }
 
-    public function update(ClientRequest $request, Client $client)
+    public function update(Client $client, ClientRequest $request)
     {
-        $client->update($request->validated());
+        $updatedClient = $this->clientService->update($client, $request->validated());
 
-        return new ClientResource($client);
+        return redirect()->back()->with('success', 'Client updated successfully.');
     }
 
     public function destroy(Client $client)
