@@ -24,6 +24,28 @@ class Booking extends Model
         return $this->belongsTo(Service::class);
     }
 
+    public function duration()
+    {
+        $start = $this->start_time;
+        $end = $this->end_time;
+
+        if ($start->greaterThan($end)) {
+            [$start, $end] = [$end, $start]; // swap
+        }
+
+        $minutes = $start->diffInMinutes($end);
+
+        $hours = intdiv($minutes, 60);
+        $remaining = $minutes % 60;
+
+        return trim(
+            ($hours ? "{$hours} hour" . ($hours > 1 ? 's' : '') : '') . ' ' .
+            ($remaining ? "{$remaining} minute" . ($remaining > 1 ? 's' : '') : '')
+        );
+    }
+
+
+
     protected function casts()
     {
         return [

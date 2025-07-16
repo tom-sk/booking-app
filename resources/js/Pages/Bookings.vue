@@ -41,28 +41,26 @@ onMounted(() => {
 
 <template>
     <div>
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <BookingCalendar
-                :bookings="bookings"
-                @day-selected-bookings="getBooking"
-            />
+        <BookingCalendar
+            :bookings="bookings"
+            @day-selected-bookings="getBooking"
+        />
 
-            <div v-if="activeBookingIds.length" class="mt-6 p-4 bg-white rounded shadow">
-                <h3 class="mb-4 font-semibold text-lg">Bookings on selected day</h3>
-                <ul class="divide-black divide d-flex">
-                    <li v-for="booking in activeBookings" :key="booking.id" class="mb-2 pb-2">
-                        <div><strong>Client:</strong> {{ booking.client.name }}</div>
-                        <div><strong>Service:</strong> {{ booking.service.name }}</div>
-                        <div><strong>Time:</strong> {{ booking.start_time.substring(11, 16) }} -
-                            {{ booking.end_time.substring(11, 16) }}
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <div v-if="activeBookingIds.length" class="mt-6 p-4 bg-white rounded shadow">
+            <h3 class="mb-4 font-semibold text-lg">Bookings on selected day</h3>
+            <ul class="divide-black divide d-flex">
+                <li v-for="booking in activeBookings" :key="booking.id" class="mb-2 pb-2">
+                    <div><strong>Client:</strong> {{ booking.client.name }}</div>
+                    <div><strong>Service:</strong> {{ booking.service.name }}</div>
+                    <div><strong>Time:</strong> {{ booking.start_time.substring(11, 16) }} -
+                        {{ booking.end_time.substring(11, 16) }}
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-            <div v-else class="mt-6 p-4 text-gray-500">
-                Select a day with bookings to see details.
-            </div>
+        <div v-else class="mt-6 p-4 text-gray-500">
+            Select a day with bookings to see details.
         </div>
     </div>
 </template>

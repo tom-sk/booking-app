@@ -23,7 +23,7 @@ class BookingResource extends JsonResource
             'user_id' => $this->user_id,
             'client_id' => $this->client_id,
             'service_id' => $this->service_id,
-
+            'duration' => $this->duration(),
             'client' => new ClientResource($this->whenLoaded('client')),
             'service' => new ServiceResource($this->whenLoaded('service')),
         ];
