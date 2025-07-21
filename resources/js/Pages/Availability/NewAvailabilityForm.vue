@@ -62,10 +62,7 @@ const submit = () => {
 
 <template>
   <h3 class="text-2xl font-bold">Edit Availability</h3>
-{{form.day_of_week}}
   <div class="mb-4">
-    <div>{{ getDayOfWeek(newDay.day_of_week) }}</div>
-
     <Select :options="days" v-model="form.day_of_week"/>
 
     <label for="start_time" class="block mb-2 text-sm font-medium">Start time:</label>

@@ -19,7 +19,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        $clients = $this->clientService->getAllForAuthUser();
+        $clients = $this->clientService->getAll();
 
         return Inertia::render('Clients/Index', [
             'clients' => $clients,
@@ -42,7 +42,7 @@ class ClientController extends Controller
 
     public function update(Client $client, ClientRequest $request)
     {
-        $updatedClient = $this->clientService->update($client, $request->validated());
+        $this->clientService->update($client->id, $request->validated());
 
         return redirect()->back()->with('success', 'Client updated successfully.');
     }

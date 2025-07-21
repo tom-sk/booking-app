@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
                 'service_id'  => $service->id,
                 'start_time'  => $start,
                 'end_time'    => $start->copy()->addMinutes($service->duration),
-                'status'      => 'booked',
+                'booking_status_id'      => 1,
                 'paid'        => false,
                 'notes'       => null,
             ]);

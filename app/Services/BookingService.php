@@ -6,13 +6,13 @@ use App\Http\Resources\BookingCollection;
 use App\Repositories\BookingRepository;
 use Illuminate\Support\Facades\Auth;
 
-class BookingService
+class BookingService extends BaseService
 {
-    protected $bookingRepo;
+    protected $repository;
 
     public function __construct(BookingRepository $bookingRepo)
     {
-        $this->bookingRepo = $bookingRepo;
+        $this->repository = $bookingRepo;
     }
 
     /**

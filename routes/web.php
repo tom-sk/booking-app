@@ -24,10 +24,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Bookings
-    Route::controller(BookingController::class)->group(function () {
-        Route::get('/booking', 'index')->name('bookings');
-        Route::get('/booking/store', 'store')->name('booking.store');
-    });
+
+    Route::resource('booking', BookingController::class);
+
 
     // Services
     Route::controller(ServiceController::class)->group(function () {

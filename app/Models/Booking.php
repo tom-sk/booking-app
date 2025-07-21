@@ -5,9 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Booking extends Model
+class Booking extends BaseModel
 {
     use HasFactory;
+
+    protected function casts()
+    {
+        return [
+            'start_time' => 'datetime',
+            'end_time' => 'datetime',
+            'paid' => 'boolean',
+        ];
+    }
 
     public function user()
     {
@@ -44,14 +53,9 @@ class Booking extends Model
         );
     }
 
-
-
-    protected function casts()
+    public function status()
     {
-        return [
-            'start_time' => 'datetime',
-            'end_time' => 'datetime',
-            'paid' => 'boolean',
-        ];
+        return $this->belongsTo(BookingStatus::class, 'booking_status_id');
     }
+
 }

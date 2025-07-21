@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookingRequest;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
+use App\Models\BookingStatus;
 use App\Services\BookingService;
 use Inertia\Inertia;
 
@@ -18,16 +19,18 @@ class BookingController extends Controller
     public function index()
     {
         $title = __('Bookings');
-        $bookings = $this->bookingService->getAllForAuthUser();
+        $bookings = $this->bookingService->setRelations(['client', 'service'])->getAll();
 
         return Inertia::render('Bookings', compact('bookings', 'title'));
     }
 
     public function store(BookingRequest $request)
     {
-        $booking = Booking::create($request->validated());
+        $newBooking = $request->validated();
+        $newBooking['booking_status_id'] = BookingStatus::PENDING;
+        $this->bookingService->create($newBooking);
 
-        return new BookingResource($booking);
+        return back()->with('status', 'updated');
     }
 
     public function show(Booking $booking)
